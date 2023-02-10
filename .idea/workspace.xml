@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c6cb1ee-4af5-4bc4-b833-6093ace3fe30" name="Changes" comment="Roman an Arabic string calculator done. I think">
-      <change afterPath="$PROJECT_DIR$/src/FullExpressionParser.java" afterDir="false" />
+    <list default="true" id="1c6cb1ee-4af5-4bc4-b833-6093ace3fe30" name="Changes" comment="it's working -ish">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Calculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FullExpressionParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FullExpressionParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +58,7 @@
     <option name="myCommands">
       <command value="main" />
       <command value="Main" />
+      <command value="Wrong operand input" />
     </option>
   </component>
   <component name="RunManager">
@@ -82,7 +83,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1675958609553</updated>
-      <workItem from="1675958610727" duration="25997000" />
+      <workItem from="1675958610727" duration="36068000" />
     </task>
     <task id="LOCAL-00001" summary="Roman an Arabic string calculator done. I think">
       <created>1675971550684</created>
@@ -91,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675971550684</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Done with much extended functionality">
+      <created>1675991881369</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1675991881369</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,6 +107,29 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Roman an Arabic string calculator done. I think" />
-    <option name="LAST_COMMIT_MESSAGE" value="Roman an Arabic string calculator done. I think" />
+    <MESSAGE value="Done with much extended functionality" />
+    <MESSAGE value="it's working -ish" />
+    <option name="LAST_COMMIT_MESSAGE" value="it's working -ish" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Calculator.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/FullExpressionParser.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Calculator.java</url>
+          <line>51</line>
+          <option name="timeStamp" value="47" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

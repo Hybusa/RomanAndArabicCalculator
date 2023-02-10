@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -11,14 +10,20 @@ public class FullExpressionParser {
         expression = expression.replace(" ", "");
         expression = expression.toUpperCase();
 
+        if(!expression.matches("[*/^+IVXLDM()0-9-]+"))
+            throw new InputMismatchException("Wrong input");
+
         expression = calculateAndRemoveBrackets(expression);
-        String[] numeralsArr = expression.split("\\p{Punct}");
+
+        String[] numeralsArr = expression.split("[*/^+-]");
+        if(numeralsArr.length < 1)
+            throw new InputMismatchException("Wrong input");
+
         String operands = expression.replaceAll("\\p{Alnum}","");
+        operands = operands.replaceAll("[.]","");
         char[] operandsArr = operands.toCharArray();
-
-
-        System.out.println(Arrays.toString(numeralsArr));
-        System.out.println(Arrays.toString(operandsArr));
+        if(operandsArr.length < 1)
+            throw new InputMismatchException("Wrong input");
 
         for(int i =0 ; i < numeralsArr.length;i++)
         {
@@ -26,12 +31,13 @@ public class FullExpressionParser {
             if(i < operandsArr.length)
                 expressions.add(String.valueOf(operandsArr[i]));
         }
+       // System.out.println(expressions);
 
     }
 
 
     public String calculate() throws NegativeRomanException {
-        String[] cases ={"^","*","+","-"};
+        String[] cases ={"^","*","/","-","+"};
 
        while(expressions.size()>1)
        {
@@ -51,15 +57,19 @@ public class FullExpressionParser {
                pos = expressions.indexOf(operand);
                expressions.remove(pos+1);
                pos = expressions.indexOf(operand);
-               expressions.set(pos, calc.calculate());
+               if(calc.typeOfNumbers == TypeOfNumbers.ROMAN)
+                    expressions.set(pos, RomanNumerals.getRomanNumeralFromNumber((int)Float.parseFloat(calc.calculate())));
+               else
+                   expressions.set(pos, calc.calculate());
            }
-
+         //  System.out.println(expressions);
        }
-        return RomanNumerals.getRomanNumeralFromNumber(Integer.parseInt(expressions.get(0)))
-                + " (" + expressions.get(0) + ")";
+        return expressions.get(0);
     }
 
     private String calculateAndRemoveBrackets(String expression) throws NegativeRomanException {
+        if(expression.matches(".*[IVXLDM0-9]\\(.*") || expression.matches(".*\\)[IVXLDM0-9].*"))
+            throw new InputMismatchException("Wrong input");
         while (expression.contains("(")) {
             if (!checkBracketsMatch(expression)) {
                 throw new InputMismatchException("Wrong amount of brackets");
@@ -68,7 +78,7 @@ public class FullExpressionParser {
             int bracketsBegin = expression.indexOf('(');
             int bracketsEnd = expression.indexOf(')');
 
-            Calculator calc = new Calculator(expression.substring(bracketsBegin+1, bracketsEnd));
+            FullExpressionParser calc = new FullExpressionParser(expression.substring(bracketsBegin+1, bracketsEnd));
 
             expression = expression.replace(expression.substring(bracketsBegin, bracketsEnd+1),  calc.calculate());
         }
@@ -82,7 +92,7 @@ public class FullExpressionParser {
         int rightBracketCounter = 0;
         while (true) {
             pos = expression.indexOf('(', pos);
-            if (pos > 0) {
+            if (pos >= 0) {
                 leftBracketCounter++;
                 pos++;
             } else
@@ -91,7 +101,7 @@ public class FullExpressionParser {
         pos = 0;
         while (true) {
             pos = expression.indexOf(')', pos);
-            if (pos > 0) {
+            if (pos >= 0) {
                 rightBracketCounter++;
                 pos++;
             }
