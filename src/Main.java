@@ -25,9 +25,8 @@ public class Main {
 
 
     public static String calc(String input) throws NegativeRomanException {
-        Calculator calc = new Calculator(input);
-
-        return calc.calclulate();
+        FullExpressionParser Expression = new FullExpressionParser(input);
+        return Expression.calculate();
     }
 
 }

@@ -7,8 +7,6 @@ public class Calculator {
     TypeOfNumbers typeOfNumbers;
 
     Calculator(String question) {
-        question = question.replace(" ", "");
-        question = question.toUpperCase();
 
         String operand = question.replaceAll("\\p{Alnum}", "");
         this.operand = getOperandFromString(operand);
@@ -50,14 +48,14 @@ public class Calculator {
     }
 
     private char getOperandFromString(String operand) {
-        if (operand.length() == 1 && operand.matches("[*+/-]")) {
+        if (operand.length() == 1 && operand.matches("[*+/^-]")) {
             return operand.charAt(0);
         } else {
             throw new InputMismatchException("Wrong operand input");
         }
     }
 
-    public String calclulate() throws NegativeRomanException {
+    public String calculate() throws NegativeRomanException {
         int result = 0;
         switch (this.operand) {
             case '*':
@@ -71,14 +69,16 @@ public class Calculator {
                 break;
             case '-':
                 result = this.firstNumber - this.secondNumber;
+                break;
+            case '^':
+                result = (int)Math.pow(this.firstNumber,this.secondNumber);
+                break;
             default:
                 break;
         }
         if (result < 0 && this.typeOfNumbers.equals(TypeOfNumbers.ROMAN))
             throw new NegativeRomanException("Roman number cant be less then zero");
-        else if (this.typeOfNumbers.equals(TypeOfNumbers.ROMAN))
-            return String.valueOf(result);
         else
-            return (RomanNumerals.getRomanNumeralFromNumber(result) + " (" + result + ")" ) ;
+            return String.valueOf(result);
     }
 }
