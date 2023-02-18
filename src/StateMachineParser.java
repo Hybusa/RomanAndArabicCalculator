@@ -4,8 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Stack;
 
 public class StateMachineParser {
-    Stack<Object> stack = new Stack<>();
 
+    Stack<Object> stack = new Stack<>();
     String expression;
     ParserState state = ParserState.BEGINNING;
     OperandState previousOperandState = OperandState.DUMMY;
@@ -18,8 +18,13 @@ public class StateMachineParser {
 
         if (!this.expression.matches("[*/^+IVXLDM()0-9-.]+"))
             throw new InputMismatchException("Wrong input");
+        if(expression.charAt(0) == '-')
+            stack.push(new Numeral("0"));
 
-        System.out.println("Your expression is " + this.expression);
+
+        System.out.println("Your expression is " + ConsoleColors.PURPLE_BRIGHT
+                + this.expression
+                + ConsoleColors.RESET);
     }
 
     private void checkAndTrimTheExpression() {
@@ -52,6 +57,7 @@ public class StateMachineParser {
 
                 case BRACKET_OPENING:
 
+                    bracketState = BracketState.OPENED;
                     ParserState inBracketState = ParserState.BEGINNING;
                     StringBuilder bracketBuilder = new StringBuilder();
                     bracketState.counter++;
@@ -75,6 +81,7 @@ public class StateMachineParser {
                     bracketBuilder.deleteCharAt(bracketBuilder.length() - 1);
                     StateMachineParser inBracketParser = new StateMachineParser(bracketBuilder.toString());
                     stack.push(inBracketParser.calculate());
+                    bracketState = BracketState.CLOSED;
                     break;
                 case IN_NUMERAL:
                     sb.append(lookup);
@@ -153,7 +160,9 @@ public class StateMachineParser {
     private Numeral calculateSimpleExpression(Numeral last, Operand operand, Numeral first) {
         if (first.type != last.type)
             throw new InputMismatchException("Numbers have to be of the same format");
-        System.out.println("Simple expression: " + first + operand + last);
+        System.out.println("Simple expression: "+ ConsoleColors.CYAN_BRIGHT
+                + first + operand + last
+                + ConsoleColors.RESET);
         Numeral result = new Numeral();
         result.type = first.type;
         switch (operand) {

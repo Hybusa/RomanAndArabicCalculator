@@ -22,7 +22,9 @@ public class Calculator {
         }
         if(result.value < 0 && result.type == TypeOfNumbers.ROMAN)
             throw new NegativeRomanException("Roman numbers can't be negative");
-        System.out.println("Result is: " + result);
+        System.out.println("Result is: " + ConsoleColors.GREEN_BOLD + ConsoleColors.GREEN_UNDERLINED
+                + result
+                + ConsoleColors.RESET);
     }
 
 
