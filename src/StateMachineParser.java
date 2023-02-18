@@ -8,7 +8,6 @@ public class StateMachineParser {
 
     String expression;
     ParserState state = ParserState.BEGINNING;
-    ParserState previousState;
     OperandState previousOperandState = OperandState.DUMMY;
     BracketState bracketState = BracketState.CLOSED;
 
@@ -27,7 +26,7 @@ public class StateMachineParser {
         expression = expression.trim();
         expression = expression.replaceAll("\\p{C}", "?");
         expression = expression.replace(" ", "");
-        if(expression.length() < 1)
+        if (expression.length() < 1)
             throw new InputMismatchException("Wrong Input: Empty String");
         expression = expression.toUpperCase();
         if (expression.substring(0, 1).matches("[*/^+]"))
@@ -46,12 +45,8 @@ public class StateMachineParser {
 
         for (int i = 0; i < expression.length(); i++) {
             final char lookup = expression.charAt(i);
-            ParserState currentState = checkState(lookup, state);
-            if (state != currentState) {
-                previousState = state;
-                state = currentState;
-            }
 
+            state = checkState(lookup, state);
 
             switch (state) {
 
@@ -60,11 +55,10 @@ public class StateMachineParser {
                     ParserState inBracketState = ParserState.BEGINNING;
                     StringBuilder bracketBuilder = new StringBuilder();
                     bracketState.counter++;
-                    while (bracketState.counter>0){
+                    while (bracketState.counter > 0) {
                         final char inBracketLookup = expression.charAt(++i);
-                        inBracketState = checkState(inBracketLookup,inBracketState);
-                        switch (inBracketState)
-                        {
+                        inBracketState = checkState(inBracketLookup, inBracketState);
+                        switch (inBracketState) {
                             case BRACKET_OPENING:
                                 bracketState.counter++;
                                 break;
@@ -74,7 +68,7 @@ public class StateMachineParser {
                             case ERROR:
                                 throw new RuntimeException("Something Went Terribly Wrong. I'm sorry");
                             default:
-                               break;
+                                break;
                         }
                         bracketBuilder.append(inBracketLookup);
                     }
@@ -86,7 +80,7 @@ public class StateMachineParser {
                     sb.append(lookup);
                     break;
                 case OPERAND:
-                    if(sb.length() > 0)
+                    if (sb.length() > 0)
                         stack.push(new Numeral(sb.toString()));
                     sb.setLength(0);
                     Operand operand = Operand.valueOfOperand(lookup);
@@ -107,7 +101,7 @@ public class StateMachineParser {
             throw new InputMismatchException("Wrong Amount Of Brackets");
         }
 
-        if(sb.length()>0)
+        if (sb.length() > 0)
             stack.push(new Numeral(sb.toString()));
         while (stack.size() > 1) {
             stack.push(composeAndCalculateSimpleExpression());
@@ -150,21 +144,19 @@ public class StateMachineParser {
             return ParserState.ERROR;
         if (string.matches("\\("))
             return ParserState.BRACKET_OPENING;
-        if(string.matches("\\)"))
-            return  ParserState.BRACKET_CLOSING;
+        if (string.matches("\\)"))
+            return ParserState.BRACKET_CLOSING;
 
         return currentState;
     }
 
-    private  Numeral calculateSimpleExpression(Numeral last, Operand operand, Numeral first)
-    {
-        if(first.type != last.type)
+    private Numeral calculateSimpleExpression(Numeral last, Operand operand, Numeral first) {
+        if (first.type != last.type)
             throw new InputMismatchException("Numbers have to be of the same format");
         System.out.println("Simple expression: " + first + operand + last);
         Numeral result = new Numeral();
         result.type = first.type;
-        switch (operand)
-        {
+        switch (operand) {
             case POW:
                 result.value = Math.pow(first.value, last.value);
                 break;
@@ -172,7 +164,7 @@ public class StateMachineParser {
                 result.value = first.value * last.value;
                 break;
             case DIVISION:
-                result.value = first.value/ last.value;
+                result.value = first.value / last.value;
                 break;
             case SUBTRACTION:
                 result.value = first.value - last.value;
@@ -181,7 +173,7 @@ public class StateMachineParser {
                 result.value = first.value + last.value;
                 break;
             default:
-                throw  new InputMismatchException("Something went terribly wrong and I am sorry for that.");
+                throw new InputMismatchException("Something went terribly wrong and I am sorry for that.");
         }
         return result;
     }
