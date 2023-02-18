@@ -1,4 +1,5 @@
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Calculator {
     float firstNumber;
@@ -28,6 +29,31 @@ public class Calculator {
         System.out.println("Your question is " + this.firstNumber + this.operand + this.secondNumber);
     }
 
+    public static void calculator() throws NegativeRomanException {
+
+        Numeral result;
+        while (true) {
+            System.out.println("Enter a math question in Roman OR Arabic numbers.");
+            Scanner input = new Scanner(System.in);
+            if (input.hasNextLine()) {
+                try {
+                    StateMachineParser parser = new StateMachineParser(input.nextLine());
+                    result =  parser.calculate();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println(e.getLocalizedMessage());
+                }
+            } else {
+                System.out.println("No input");
+            }
+        }
+        if(result.value < 0 && result.type == TypeOfNumbers.ROMAN)
+            throw new NegativeRomanException("Roman numbers can't be negative");
+    }
+
+
+
+
     private float[] getNumberFromString(String[] numbers) {
         if (numbers[0].isEmpty() || numbers[1].isEmpty())
             throw new InputMismatchException("Wrong question format");
@@ -56,6 +82,36 @@ public class Calculator {
         }
     }
 
+
+    public static Numeral calculateSimpleExpression(Numeral first, Operand operand, Numeral last)
+    {
+        if(first.type != last.type)
+            throw new InputMismatchException("Numbers have to be of the same format");
+        System.out.println("Simple expression: " + first + operand + last);
+        Numeral result = new Numeral();
+        result.type = first.type;
+        switch (operand)
+        {
+            case POW:
+                result.value = Math.pow(first.value, last.value);
+                break;
+            case MULTIPLICATION:
+                result.value = first.value * last.value;
+                break;
+            case DIVISION:
+                result.value = first.value/ last.value;
+                break;
+            case SUBTRACTION:
+                result.value = first.value - last.value;
+                break;
+            case ADDITION:
+                result.value = first.value + last.value;
+                break;
+            default:
+                throw  new InputMismatchException("Something went terribly wrong and I am sorry for that.");
+        }
+        return result;
+    }
     public String calculate() throws NegativeRomanException {
         float result = 0;
         switch (this.operand) {

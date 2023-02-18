@@ -1,11 +1,10 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
+/*
+        Operand op = Operand.valueOfOperand('*');
+        System.out.println(op.toString());
 
-
-        String result;
+       String result;
         while (true) {
             System.out.println("Enter a math question in Roman OR Arabic numbers.");
             Scanner input = new Scanner(System.in);
@@ -20,13 +19,12 @@ public class Main {
                 System.out.println("No input");
             }
         }
-        System.out.println(result);
+        System.out.println(result);*/
+
+
+        StateMachineParser parser = new StateMachineParser("1 + (2- 3 + (3-8 + 6 ) + 32 )) /2 + 5^2 - 1");
+        System.out.println(parser.calculate());
+
+
     }
-
-
-    public static String calc(String input) throws NegativeRomanException {
-        FullExpressionParser Expression = new FullExpressionParser(input);
-        return Expression.calculate();
-    }
-
 }

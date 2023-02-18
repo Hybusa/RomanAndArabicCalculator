@@ -1,4 +1,7 @@
+import com.sun.source.tree.Tree;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -6,17 +9,18 @@ public class FullExpressionParser {
     List<String> expressions = new ArrayList<>();
 
     FullExpressionParser(String expression) throws NegativeRomanException {
-        expression = expression.trim();
-        expression = expression.replace(" ", "");
-        expression = expression.toUpperCase();
 
-        if(!expression.matches("[*/^+IVXLDM()0-9-]+"))
-            throw new InputMismatchException("Wrong input");
+        expression = trimTheExpression(expression);
 
-        expression = calculateAndRemoveBrackets(expression);
+
+
+
+        //Star Composing
+
+        expression = calculateAndRemoveBrackets2(expression);
 
         String[] numeralsArr = expression.split("[*/^+-]");
-        if(numeralsArr.length < 1)
+        if(numeralsArr.length < 2)
             throw new InputMismatchException("Wrong input");
 
         String operands = expression.replaceAll("\\p{Alnum}","");
@@ -35,7 +39,13 @@ public class FullExpressionParser {
 
     }
 
-
+    private String trimTheExpression(String expression)
+    {
+        expression = expression.trim();
+        expression = expression.replace(" ", "");
+        expression = expression.toUpperCase();
+        return expression;
+    }
     public String calculate() throws NegativeRomanException {
         String[] cases ={"^","*","/","-","+"};
 
@@ -86,6 +96,28 @@ public class FullExpressionParser {
 
     }
 
+    private String calculateAndRemoveBrackets2(String expression) throws NegativeRomanException {
+        if(expression.matches(".*[IVXLDM0-9]\\(.*") || expression.matches(".*\\)[IVXLDM0-9].*"))
+            throw new InputMismatchException("Wrong input");
+        while (expression.contains("(")) {
+            if (!checkBracketsMatch(expression)) {
+                throw new InputMismatchException("Wrong amount of brackets");
+            }
+
+            String [] split = expression.split("[()]");
+
+           for(int i = 1; i < split.length; i+=2)
+            {
+                FullExpressionParser calc = new FullExpressionParser(split[i]);
+                split[i] = calc.calculate();
+            }
+
+            System.out.println(Arrays.toString(split));
+        }
+        return expression;
+
+    }
+
     private boolean checkBracketsMatch(String expression) {
         int pos = 0;
         int leftBracketCounter = 0;
@@ -111,6 +143,8 @@ public class FullExpressionParser {
 
         return leftBracketCounter == rightBracketCounter;
     }
+
+
 
 
 }
