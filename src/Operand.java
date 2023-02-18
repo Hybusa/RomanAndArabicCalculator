@@ -2,11 +2,11 @@ public enum Operand {
     MULTIPLICATION('*', OperandState.SECOND_PRIO),
     DIVISION('/', OperandState.SECOND_PRIO),
     POW('^',OperandState.FIRST_PRIO),
-    ADDITION('+', OperandState.FOURTH_PRIO),
+    ADDITION('+', OperandState.THIRD_PRIO),
     SUBTRACTION('-', OperandState.THIRD_PRIO);
 
     private final char operand;
-    public OperandState operandState;
+    public final OperandState operandState;
 
      Operand(final char operand, OperandState operandState) {
         this.operand = operand;

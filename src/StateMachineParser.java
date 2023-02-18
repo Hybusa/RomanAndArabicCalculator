@@ -17,7 +17,7 @@ public class StateMachineParser {
         this.expression = expression;
         checkAndTrimTheExpression();
 
-        if (!this.expression.matches("[*/^+IVXLDM()0-9-]+"))
+        if (!this.expression.matches("[*/^+IVXLDM()0-9-.]+"))
             throw new InputMismatchException("Wrong input");
 
         System.out.println("Your expression is " + this.expression);
@@ -25,7 +25,10 @@ public class StateMachineParser {
 
     private void checkAndTrimTheExpression() {
         expression = expression.trim();
+        expression = expression.replaceAll("\\p{C}", "?");
         expression = expression.replace(" ", "");
+        if(expression.length() < 1)
+            throw new InputMismatchException("Wrong Input: Empty String");
         expression = expression.toUpperCase();
         if (expression.substring(0, 1).matches("[*/^+]"))
             throw new InputMismatchException("Wrong expression beginning");
@@ -34,11 +37,8 @@ public class StateMachineParser {
     }
 
     private Numeral composeAndCalculateSimpleExpression() {
-        Numeral simpleExpressionLast = (Numeral) stack.pop();
-        Operand simpleExpressionOperand = (Operand) stack.pop();
-        Numeral simpleExpressionFirst = (Numeral) stack.pop();
-        return Calculator.calculateSimpleExpression(simpleExpressionFirst
-                , simpleExpressionOperand, simpleExpressionLast);
+        return calculateSimpleExpression((Numeral) stack.pop()
+                , (Operand) stack.pop(), (Numeral) stack.pop());
     }
 
     public Numeral calculate() {
@@ -57,18 +57,37 @@ public class StateMachineParser {
 
                 case BRACKET_OPENING:
 
-                    int j = expression.lastIndexOf(')');
-                    StateMachineParser parser = new StateMachineParser(expression.substring(i+1, j));
-                    i = j;
-                    stack.push(parser.calculate());
-
+                    ParserState inBracketState = ParserState.BEGINNING;
+                    StringBuilder bracketBuilder = new StringBuilder();
+                    bracketState.counter++;
+                    while (bracketState.counter>0){
+                        final char inBracketLookup = expression.charAt(++i);
+                        inBracketState = checkState(inBracketLookup,inBracketState);
+                        switch (inBracketState)
+                        {
+                            case BRACKET_OPENING:
+                                bracketState.counter++;
+                                break;
+                            case BRACKET_CLOSING:
+                                bracketState.counter--;
+                                break;
+                            case ERROR:
+                                throw new RuntimeException("Something Went Terribly Wrong. I'm sorry");
+                            default:
+                               break;
+                        }
+                        bracketBuilder.append(inBracketLookup);
+                    }
+                    bracketBuilder.deleteCharAt(bracketBuilder.length() - 1);
+                    StateMachineParser inBracketParser = new StateMachineParser(bracketBuilder.toString());
+                    stack.push(inBracketParser.calculate());
                     break;
                 case IN_NUMERAL:
                     sb.append(lookup);
                     break;
                 case OPERAND:
                     if(sb.length() > 0)
-                    stack.push(new Numeral(sb.toString()));
+                        stack.push(new Numeral(sb.toString()));
                     sb.setLength(0);
                     Operand operand = Operand.valueOfOperand(lookup);
                     if (operand.operandState.intValue >= previousOperandState.intValue)
@@ -88,7 +107,8 @@ public class StateMachineParser {
             throw new InputMismatchException("Wrong Amount Of Brackets");
         }
 
-        stack.push(new Numeral(sb.toString()));
+        if(sb.length()>0)
+            stack.push(new Numeral(sb.toString()));
         while (stack.size() > 1) {
             stack.push(composeAndCalculateSimpleExpression());
         }
@@ -122,7 +142,7 @@ public class StateMachineParser {
 
     private ParserState checkState(char lookup, ParserState currentState) {
         String string = String.valueOf(lookup);
-        if (string.matches("[IVXLDM0-9]"))
+        if (string.matches("[IVXLDM0-9.]"))
             return ParserState.IN_NUMERAL;
         if (string.matches("[*/^+-]"))
             return ParserState.OPERAND;
@@ -130,10 +150,39 @@ public class StateMachineParser {
             return ParserState.ERROR;
         if (string.matches("\\("))
             return ParserState.BRACKET_OPENING;
-        if (string.matches("\\)"))
-            return ParserState.BRACKET_CLOSING;
-
+        if(string.matches("\\)"))
+            return  ParserState.BRACKET_CLOSING;
 
         return currentState;
+    }
+
+    private  Numeral calculateSimpleExpression(Numeral last, Operand operand, Numeral first)
+    {
+        if(first.type != last.type)
+            throw new InputMismatchException("Numbers have to be of the same format");
+        System.out.println("Simple expression: " + first + operand + last);
+        Numeral result = new Numeral();
+        result.type = first.type;
+        switch (operand)
+        {
+            case POW:
+                result.value = Math.pow(first.value, last.value);
+                break;
+            case MULTIPLICATION:
+                result.value = first.value * last.value;
+                break;
+            case DIVISION:
+                result.value = first.value/ last.value;
+                break;
+            case SUBTRACTION:
+                result.value = first.value - last.value;
+                break;
+            case ADDITION:
+                result.value = first.value + last.value;
+                break;
+            default:
+                throw  new InputMismatchException("Something went terribly wrong and I am sorry for that.");
+        }
+        return result;
     }
 }

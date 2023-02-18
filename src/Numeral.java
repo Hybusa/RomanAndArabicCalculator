@@ -10,7 +10,7 @@ public class Numeral {
 
         if (numeral.matches("[.0-9]+")) {
             this.type = TypeOfNumbers.ARABIC;
-            this.value = Float.parseFloat(numeral);
+            this.value = Double.parseDouble(numeral);
 
         } else if (numeral.matches("[IVXLDM]+")) {
             this.type = TypeOfNumbers.ROMAN;
