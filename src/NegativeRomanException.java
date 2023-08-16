@@ -1,4 +1,4 @@
-public class NegativeRomanException extends Exception{
+public class NegativeRomanException extends RuntimeException{
 
     NegativeRomanException(String string)
     {
