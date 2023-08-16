@@ -1,7 +1,4 @@
-
-import java.util.InputMismatchException;
-
-import java.util.Stack;
+import java.util.*;
 
 public class StateMachineParser {
 
@@ -16,11 +13,10 @@ public class StateMachineParser {
         this.expression = expression;
         checkAndTrimTheExpression();
 
-        if (!this.expression.matches("[*/^+IVXLDM()0-9-.]+"))
+        if (!this.expression.matches("[*/^+IVCXLDM()0-9-.]+"))
             throw new InputMismatchException("Wrong input");
-        if(expression.charAt(0) == '-')
+        if (expression.charAt(0) == '-' || expression.charAt(0) == '+')
             stack.push(new Numeral("0"));
-
 
         System.out.println("Your expression is " + ConsoleColors.PURPLE_BRIGHT
                 + this.expression
@@ -100,13 +96,10 @@ public class StateMachineParser {
                 case ERROR:
                 default:
                     throw new RuntimeException("Something Went Terribly Wrong. I'm sorry");
-
-
             }
         }
-        if (bracketState.counter != 0) {
+        if (bracketState.counter != 0)
             throw new InputMismatchException("Wrong Amount Of Brackets");
-        }
 
         if (sb.length() > 0)
             stack.push(new Numeral(sb.toString()));
@@ -143,7 +136,7 @@ public class StateMachineParser {
 
     private ParserState checkState(char lookup, ParserState currentState) {
         String string = String.valueOf(lookup);
-        if (string.matches("[IVXLDM0-9.]"))
+        if (string.matches("[IVXCLDM0-9.]"))
             return ParserState.IN_NUMERAL;
         if (string.matches("[*/^+-]"))
             return ParserState.OPERAND;
@@ -160,7 +153,7 @@ public class StateMachineParser {
     private Numeral calculateSimpleExpression(Numeral last, Operand operand, Numeral first) {
         if (first.type != last.type)
             throw new InputMismatchException("Numbers have to be of the same format");
-        System.out.println("Simple expression: "+ ConsoleColors.CYAN_BRIGHT
+        System.out.println("Simple expression: " + ConsoleColors.CYAN_BRIGHT
                 + first + operand + last
                 + ConsoleColors.RESET);
         Numeral result = new Numeral();

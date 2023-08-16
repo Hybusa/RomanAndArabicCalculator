@@ -12,7 +12,7 @@ public class Numeral {
             this.type = TypeOfNumbers.ARABIC;
             this.value = Double.parseDouble(numeral);
 
-        } else if (numeral.matches("[IVXLDM]+")) {
+        } else if (numeral.matches("[IVCXLDM]+")) {
             this.type = TypeOfNumbers.ROMAN;
             this.value = RomanNumerals.getNumberFromRomanNumeral(numeral);
         }

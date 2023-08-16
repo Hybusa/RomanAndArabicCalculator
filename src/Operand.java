@@ -1,3 +1,5 @@
+import java.util.InputMismatchException;
+
 public enum Operand {
     MULTIPLICATION('*', OperandState.SECOND_PRIO),
     DIVISION('/', OperandState.SECOND_PRIO),
@@ -21,7 +23,7 @@ public enum Operand {
                 return op;
             }
         }
-        return null;
+        throw new InputMismatchException("Something wrong with operand");
     }
 
     @Override

@@ -8,7 +8,7 @@ public class Calculator {
         while (true) {
             System.out.println("Enter a math question in Roman OR Arabic numbers.");
             Scanner input = new Scanner(System.in);
-            if (input.hasNextLine()) {
+             if (input.hasNextLine()) {
                 try {
                     StateMachineParser parser = new StateMachineParser(input.nextLine());
                     result =  parser.calculate();
@@ -26,7 +26,4 @@ public class Calculator {
                 + result
                 + ConsoleColors.RESET);
     }
-
-
-
 }

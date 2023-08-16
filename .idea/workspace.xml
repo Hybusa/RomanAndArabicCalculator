@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c6cb1ee-4af5-4bc4-b833-6093ace3fe30" name="Changes" comment="minor changes">
-      <change afterPath="$PROJECT_DIR$/src/ConsoleColors.java" afterDir="false" />
+    <list default="true" id="1c6cb1ee-4af5-4bc4-b833-6093ace3fe30" name="Changes" comment="now accepts '-' in the beginning of the expression and has colors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Calculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Numeral.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Numeral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Operand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Operand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RomanNumerals.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RomanNumerals.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/StateMachineParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/StateMachineParser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,21 +43,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;X:/Code/Java/Roman_Calculator&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "X:/Code/Java/Roman_Calculator",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "JAVA"
+    ]
   }
-}</component>
+}]]></component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="main" />
@@ -63,7 +74,7 @@
       <command value="Wrong operand input" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Java Scratch.RomanMathCalculator">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Roman_Calculator" />
@@ -71,7 +82,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Write tests for method StateMachineParser.calculate" type="com.diffblue.cover.write-tests-run-configuration" factoryName="com.diffblue.cover.write-tests-run-configuration" activateToolWindowBeforeRun="false" temporary="true">
+    <configuration name="RomanMathCalculator" type="Java Scratch" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="RomanMathCalculator" />
+      <option name="SCRATCH_FILE_URL" value="file://$APPLICATION_CONFIG_DIR$/scratches/RomanMathCalculator.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Write tests for method StateMachineParser.calculate" type="com.diffblue.cover.write-tests-run-configuration" factoryName="com.diffblue.cover.write-tests-run-configuration">
       <module name="Roman_Calculator" />
       <settings run-config-name="Write tests for method StateMachineParser.calculate" include-system-env-vars="true">
         <jvm-args />
@@ -82,6 +100,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Java Scratch.RomanMathCalculator" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Diffblue Cover.Write tests for method StateMachineParser.calculate" />
       </list>
@@ -107,7 +126,33 @@
       <workItem from="1676648726496" duration="13833000" />
       <workItem from="1676666968257" duration="1156000" />
       <workItem from="1676683881964" duration="11840000" />
-      <workItem from="1676719104540" duration="4865000" />
+      <workItem from="1676719104540" duration="11286000" />
+      <workItem from="1676744084826" duration="92000" />
+      <workItem from="1676757847978" duration="252000" />
+      <workItem from="1676763616684" duration="118000" />
+      <workItem from="1677081583313" duration="948000" />
+      <workItem from="1677114017040" duration="68000" />
+      <workItem from="1677114102754" duration="159000" />
+      <workItem from="1677114891242" duration="785000" />
+      <workItem from="1677167283287" duration="472000" />
+      <workItem from="1677214152265" duration="1366000" />
+      <workItem from="1677221974626" duration="1488000" />
+      <workItem from="1677224428229" duration="10000" />
+      <workItem from="1677225204659" duration="123000" />
+      <workItem from="1677497267116" duration="79000" />
+      <workItem from="1679093090066" duration="750000" />
+      <workItem from="1679333984419" duration="1819000" />
+      <workItem from="1679396547177" duration="25000" />
+      <workItem from="1681715156394" duration="1354000" />
+      <workItem from="1681755720883" duration="33000" />
+      <workItem from="1681802658191" duration="198000" />
+      <workItem from="1682728368615" duration="1593000" />
+      <workItem from="1682760927781" duration="149000" />
+      <workItem from="1684521474507" duration="90000" />
+      <workItem from="1684569201930" duration="649000" />
+      <workItem from="1687368210428" duration="185000" />
+      <workItem from="1688169494730" duration="249000" />
+      <workItem from="1688172536608" duration="929000" />
     </task>
     <task id="LOCAL-00001" summary="Roman an Arabic string calculator done. I think">
       <created>1675971550684</created>
@@ -144,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676719589878</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="now accepts '-' in the beginning of the expression and has colors">
+      <created>1676724510716</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676724510716</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +207,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -169,6 +227,7 @@
     <MESSAGE value="it's kinda works. not as google tho." />
     <MESSAGE value="it's kinda working. not as google tho." />
     <MESSAGE value="minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+    <MESSAGE value="now accepts '-' in the beginning of the expression and has colors" />
+    <option name="LAST_COMMIT_MESSAGE" value="now accepts '-' in the beginning of the expression and has colors" />
   </component>
 </project>
